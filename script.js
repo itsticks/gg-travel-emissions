@@ -27,7 +27,7 @@ formElement.innerHTML = `
 </fieldset>
 
 <fieldset>
-<label for='engineType-${id}'>Engine type</label>
+<label for='engineType-${id}'>Engine</label>
 <select id='engineType-${id}'>
     <option>Petrol</option>
     <option>Diesel</option>
