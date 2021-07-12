@@ -2,6 +2,11 @@
 
 https://itsticks.github.io/gg-travel-emissions/
 
+# todo
+
+- querystring update share link
+- social share links maybe
+
 # gg-travel-emissions
 
 using data from https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2021
