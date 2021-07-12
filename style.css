@@ -1,9 +1,23 @@
 main {
-    display:flex;
-    flex-flow: row wrap;
-    width:100%;
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
 }
 
 .form {
-    width:max-content;
+  width: max-content;
+  border: 2px solid black;
+  margin: 3px;
+}
+
+.form fieldset {
+  border: none;
+}
+
+.form fieldset div {
+  margin-bottom: 3px;
+}
+
+button#copy {
+  margin: 3px;
 }
