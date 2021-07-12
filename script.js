@@ -48,16 +48,17 @@ formElement.innerHTML = `
 
 <div>
 <label for='distance-${id}'>Distance</label>
-<input type='number' id='distance-${id}' value='10' step='5' />
+<input type='number' id='distance-${id}' value='100' step='5' />
 <select id='measurement-${id}'>
     <option>miles</option>
     <option>km</option>
 </select>
 </div>
+
 </fieldset>
 
-<ul id='result-${id}'>
-</ul>`;
+<ul id='result-${id}'></ul>
+`;
 
     main.append(formElement);
 

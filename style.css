@@ -6,8 +6,11 @@ main {
 
 .form {
   width: max-content;
-  border: 2px solid black;
+  border-width: 2px;
+  border-color: dimgray;
+  border-style: inset;
   margin: 3px;
+  background-color: floralwhite;
 }
 
 .form fieldset {
@@ -15,7 +18,7 @@ main {
 }
 
 .form fieldset div {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 button#copy {
