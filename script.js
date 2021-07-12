@@ -11,7 +11,7 @@ let variants = Object.keys(data).map(x => x.split('|')[2]).filter((x, i, arr) =>
 
 const addFormElementToPage = () => {
 
-    let updateVariants = () => {
+    let updateTypes = () => {
         types = Object.keys(data)
             .filter(x=>x.indexOf(document.getElementById(`mode-${id}`).value)>-1)
             .map(x => x.split('|')[1])
@@ -25,7 +25,8 @@ const addFormElementToPage = () => {
             option.value = x;
             typeSelect.append(option);
            })
-        
+    }
+        let updateVariants = () => {
         variants = Object.keys(data)
             .filter(x=>x.indexOf(document.getElementById(`type-${id}`).value)>-1)
             .map(x => x.split('|')[2]).filter((x, i, arr) => i == arr.indexOf(x));
@@ -41,7 +42,7 @@ const addFormElementToPage = () => {
     }
 
     let updateResult = () => {
-        updateVariants();
+        
     document.getElementById(`result-${id}`).innerHTML = '';
     
     //adjust km-based values for miles
@@ -105,6 +106,8 @@ formElement.innerHTML = `
     main.append(formElement);
 
     let modeSelect = document.getElementById(`mode-${id}`);
+    let typeSelect = document.getElementById(`type-${id}`);
+
     modes.forEach(x => {
         let option = document.createElement('option');
         option.append(document.createTextNode(x));
@@ -112,10 +115,10 @@ formElement.innerHTML = `
         modeSelect.append(option);
     })
 
-    updateVariants();
+  //  updateVariants();
 
-
-
+modeSelect.onchange = updateTypes;
+typeSelect.onchange = updateVariants;
 formElement.onchange = updateResult;
 formElement.onkeyup = updateResult;
 
