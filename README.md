@@ -5,6 +5,7 @@ https://itsticks.github.io/gg-travel-emissions/
 # todo
 
 - querystring update share link
+- display totals of all journeys
 - social share links maybe
 
 # gg-travel-emissions

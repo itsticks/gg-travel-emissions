@@ -7,10 +7,9 @@ main {
 .form {
   width: max-content;
   border-width: 2px;
-  border-color: dimgray;
-  border-style: inset;
+  border-color: deeppink;
+  border-style: solid;
   margin: 3px;
-  background-color: floralwhite;
 }
 
 .form fieldset {
