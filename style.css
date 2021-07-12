@@ -7,7 +7,7 @@ main {
 .form {
   width: max-content;
   border-width: 2px;
-  border-color: deeppink;
+  border-color: thistle;
   border-style: solid;
   margin: 3px;
 }

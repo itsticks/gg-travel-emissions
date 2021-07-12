@@ -11,9 +11,11 @@ let variants = Object.keys(data).map(x => x.split('|')[2]).filter((x, i, arr) =>
 
 const addFormElementToPage = () => {
 
-    let updateVariants = ()=>{
-        types = Object.keys(data).map(x => x.split('|')[1]).filter((x, i, arr) => i == arr.indexOf(x));
-        variants = Object.keys(data).map(x => x.split('|')[2]).filter((x, i, arr) => i == arr.indexOf(x));
+    let updateVariants = () => {
+        types = Object.keys(data)
+            .filter(x=>x.indexOf(document.getElementById(`mode-${id}`).value)>-1)
+            .map(x => x.split('|')[1])
+            .filter((x, i, arr) => i == arr.indexOf(x));
 
         let typeSelect = document.getElementById(`type-${id}`);
         typeSelect.innerHTML = "";
@@ -22,7 +24,11 @@ const addFormElementToPage = () => {
             option.append(document.createTextNode(x));
             option.value = x;
             typeSelect.append(option);
-        })
+           })
+        
+        variants = Object.keys(data)
+            .filter(x=>x.indexOf(document.getElementById(`type-${id}`).value)>-1)
+            .map(x => x.split('|')[2]).filter((x, i, arr) => i == arr.indexOf(x));
     
         let variantSelect = document.getElementById(`variant-${id}`);
         variantSelect.innerHTML = "";
@@ -34,24 +40,30 @@ const addFormElementToPage = () => {
         })
     }
 
-    let updateResult = ()=>{
+    let updateResult = () => {
+        updateVariants();
     document.getElementById(`result-${id}`).innerHTML = '';
     
-    //adjust km values for miles
+    //adjust km-based values for miles
     var milesMultiplier = 1;
     if(document.getElementById(`measurement-${id}`).value=='miles'){
         milesMultiplier = 1.609344;
-    }
+        }
+        
+    let key = `${document.getElementById(`mode-${id}`).value}|${document.getElementById(`type-${id}`).value}|${document.getElementById(`variant-${id}`).value}`.replace(/\|+$/, "")
 
-    let emissions = data[`${document.getElementById(`mode-${id}`).value}|${document.getElementById(`type-${id}`).value}|${document.getElementById(`variant-${id}`).value}`.replace(/\|+$/, "")];
+        console.log(key);
+    let emissions = data[key];
 
-    Object.keys(emissions).map(k=>{
-        let emissionValue = emissions[k]*document.getElementById(`distance-${id}`).value;
-        let listElement = document.createElement('li');
-        let listElementText = emissions[k] != null ? `${(parseFloat(emissionValue) * milesMultiplier)} ${k}` : 'no data';
-        listElement.append(document.createTextNode(listElementText));
-        document.getElementById(`result-${id}`).append(listElement);
-    })
+        if (emissions != undefined) {
+            Object.keys(emissions).map(k => {
+                let emissionValue = emissions[k] * document.getElementById(`distance-${id}`).value;
+                let listElement = document.createElement('li');
+                let listElementText = emissions[k] != null ? `${(parseFloat(emissionValue) * milesMultiplier)} ${k}` : 'no data';
+                listElement.append(document.createTextNode(listElementText));
+                document.getElementById(`result-${id}`).append(listElement);
+            })
+        }
 }
 
 let forms = [].slice.call(main.getElementsByClassName('form'));
