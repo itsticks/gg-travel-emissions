@@ -42,8 +42,8 @@ formElement.innerHTML = `
 <label for='distance-${id}'>Distance</label>
 <input type='number' id='distance-${id}' value='10' step='5' />
 <select id='measurement-${id}'>
-    <option>km</option>
     <option>miles</option>
+    <option>km</option>
 </select>
 </fieldset>
 
