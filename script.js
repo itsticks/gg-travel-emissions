@@ -37,12 +37,12 @@ formElement.innerHTML = `
 <fieldset>
 
 <div>
-<label for='mode-${id}'>Vehicle</label>
+<label for='mode-${id}'>Transport</label>
 <select id='mode-${id}'></select>
 </div>
 
 <div>
-<label for='engine-${id}'>Engine</label>
+<label for='engine-${id}'>Type</label>
 <select id='engine-${id}'></select>
 </div>
 
