@@ -1,8 +1,8 @@
+const createCalculatorFormElement = () => {
 
-
-const main = document.getElementById('main');
-
-const createCalculatorFormElement = (id) => {
+    const main = document.getElementById('main');
+    let forms = [].slice.call(main.getElementsByClassName('form'));
+    let id = forms.length + 1;
 
     let updateResult = () => {
         
@@ -30,8 +30,7 @@ const createCalculatorFormElement = (id) => {
         }
 }
 
-let forms = [].slice.call(main.getElementsByClassName('form'));
-id = forms.length + 1;
+
 let formElement = document.createElement('form');
     formElement.className = 'form';
     
@@ -42,7 +41,7 @@ let fieldsetElement = document.createElement('fieldset');
         let dataKeyParts = dataKey.split('|');
         dataKeyParts.map((part,j) => {
             if (accum[j] === undefined) { accum[j] = [] }
-            if (!accum[j].includes(y)) { accum[j].push(part)}
+            if (!accum[j].includes(part)) { accum[j].push(part)}
         })
         return accum;
     },[]);
@@ -94,10 +93,7 @@ let fieldsetElement = document.createElement('fieldset');
      })
 
 
-
     main.append(formElement);
-
-
 
 
 formElement.onchange = updateResult;
@@ -109,6 +105,6 @@ updateResult();
 }
 
 
-createCalculatorFormElement(1);
+createCalculatorFormElement();
 
 document.getElementById('copy').onclick = createCalculatorFormElement;
