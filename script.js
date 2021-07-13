@@ -4,12 +4,26 @@ const main = document.getElementById('main');
 
 const modes = Object.keys(data).map(x => x.split('|')[0]).filter((x, i, arr) => i == arr.indexOf(x));
 
-let types = Object.keys(data).map(x => x.split('|')[2]).filter((x, i, arr) => i == arr.indexOf(x));
+let types = Object.keys(data).map(x => x.split('|')[1]).filter((x, i, arr) => i == arr.indexOf(x));
 let variants = Object.keys(data).map(x => x.split('|')[2]).filter((x, i, arr) => i == arr.indexOf(x));
 
 
 
 const addFormElementToPage = () => {
+    let modeValue = document.getElementById(`mode-${id}`).value;
+    let lengthOfVariants = Object.keys(data).filter(x=>x.indexOf(modeValue)>-1)[0].split("|").length;
+
+    for(i=1; i<lengthOfVariants; i++){
+        let options = Object.keys(data).filter(x=>x.indexOf(modeValue)>-1)
+        if(i>1){
+            for(j=1;j<i;j++){
+                let optionValue = document.getElementById(`option${j}-${id}`).value
+                options = options.filter(x=>x.indexOf(optionValue)>-1)
+            }
+        }
+        options = options.map(x => x.split('|')[i]);
+
+    }
 
     let updateTypes = () => {
         types = Object.keys(data)
@@ -68,7 +82,7 @@ const addFormElementToPage = () => {
 }
 
 let forms = [].slice.call(main.getElementsByClassName('form'));
-let id = forms.length + 1;
+id = forms.length + 1;
 let formElement = document.createElement('form');
 formElement.className = 'form';
 formElement.innerHTML = `
@@ -126,6 +140,8 @@ updateResult();
 
 
 }
+
+let id = 1;
 
 addFormElementToPage();
 
