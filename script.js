@@ -10,9 +10,9 @@ const createCalculatorFormElement = () => {
     
     //adjust km-based values for miles
     var milesMultiplier = 1;
-    if(document.getElementById(`measurement-${id}`).value=='miles'){
-        milesMultiplier = 1.609344;
-    }
+    // if(document.getElementById(`measurement-${id}`).value=='miles'){
+      //  milesMultiplier = 1.609344;
+    // }
      
         //todo need to get key dynamically with a .map of the select and strip the || things
     let key = `${document.getElementById(`mode-${id}`).value}|${document.getElementById(`type-${id}`).value}|${document.getElementById(`variant-${id}`).value}`.replace(/\|+$/, "");
@@ -79,11 +79,11 @@ let fieldsetElement = document.createElement('fieldset');
                         let keyMatches = Object.keys(data)
                             .filter(dataKey => dataKey.includes(ddSelects[i]).value)
                             .map(x => x.split('|')[j]);
-                        option.style.display = 'none';
-                        option.disabled = true;
+                      //  option.style.display = 'none';
+                      //  option.disabled = true;
                         if (keyMatches.includes(option.value)) {
-                            option.style.display = 'none';
-                            option.disabled = true;
+                            option.style.display = 'block';
+                            option.disabled = false;
                         }
                         return
                     });
