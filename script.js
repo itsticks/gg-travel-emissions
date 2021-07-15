@@ -23,7 +23,9 @@ const createCalculatorFormElement = ()=>{
         )
         return accum;
     }
-    , []);
+        , []);
+    
+    optionGroups.push(['miles','km'])
 
     let ddSelects = optionGroups.map((optionGroup,i)=>{
 
@@ -47,18 +49,28 @@ const createCalculatorFormElement = ()=>{
     }
     );
 
-    var resultElement = document.createElement('ul');
+            let distance = document.createElement('div');
+        let distanceLabel = document.createElement('label');
+        let distanceInput = document.createElement('input');
+        distanceInput.type = 'number';
+    distanceInput.value = 100;
+    distanceLabel.append(document.createTextNode('Distance'));
+    distance.append(distanceLabel,distanceInput);
+        
+    fieldsetElement.append(distance);
+
+    let resultElement = document.createElement('ul');
     resultElement.id = 'result-' + id;
 
     formElement.append(fieldsetElement, resultElement);
 
     ddSelects.forEach((ddSelect,i)=>{
         ddSelect.onchange = () => {
-            ddSelects.filter((select, j) => j > i).map((select, j) => {
+            ddSelects.filter((select, j, arr) => j > i && j < arr.length - 1).map((select, j) => {
                 let keyMatches = Object.keys(data)
-                  //  .filter(dataKey => dataKey.includes(select.value))
+                    //  .filter(dataKey => dataKey.includes(select.value))
                     .map(x => x.split('|')[i + j]);
-                [].slice.call(select.childNodes).map((option,k)=>{
+                [].slice.call(select.childNodes).map((option, k) => {
                     // option.style.display = 'block';
                     option.disabled = false;
                     if (!keyMatches.includes(option.innerHTML)) {
@@ -74,21 +86,21 @@ const createCalculatorFormElement = ()=>{
             //adjust km-based values for miles
             var milesMultiplier = 1;
             // if(document.getElementById(`measurement-${id}`).value=='miles'){
-            //  milesMultiplier = 1.609344;
-            // }
+            milesMultiplier = 1.609344;
+            //  }
 
-            //todo need to get key dynamically with a .map of the select and strip the || things
-            let key = `${ddSelects.reduce((accum,select)=>{
+            let key = ddSelects.filter((x,i,arr)=>i<arr.length-1).reduce((accum, select) => {
                 return accum += (select.value + '|')
-            }
-            ),
-            ""}`.replace(/\|+$/, "");
-
+            },""
+            )
+        .replace(/\|+$/, "");
+            console.log(key)
             let emissions = data[key];
-
+            console.log(ddSelects[0],key, emissions)
+            resultElement.textContent = '';
             if (emissions != undefined) {
                 Object.keys(emissions).map(k=>{
-                    let emissionValue = emissions[k] * document.getElementById(`distance-${id}`).value;
+                    let emissionValue = emissions[k] * distanceInput.value;
                     let listElement = document.createElement('li');
                     let listElementText = emissions[k] != null ? `${(parseFloat(emissionValue) * milesMultiplier)} ${k}` : 'no data';
                     listElement.append(document.createTextNode(listElementText));
