@@ -47,17 +47,15 @@ const createCalculatorFormElement = ()=>{
         }
         , "").replace(/\|+$/, "");
         let emissions = data[key];
-        resultElement.textContent = '';
+        resultList.textContent = '';
         if (emissions != undefined) {
             Object.keys(emissions).map(k=>{
-                let emissionValue = (emissions[k] * distanceInput.value)* milesMultiplier;
-
+                let emissionValue = (emissions[k] * distanceInput.value) * milesMultiplier;
                 console.log(key, emissions[k], distanceInput.value, milesMultiplier, emissionValue);
-
                 let listElement = document.createElement('li');
                 let listElementText = emissions[k] != null ? `${emissionValue} ${k}` : 'no data';
                 listElement.append(document.createTextNode(listElementText));
-                resultElement.append(listElement);
+                resultList.append(listElement);
             }
             )
         }
@@ -89,7 +87,7 @@ const createCalculatorFormElement = ()=>{
         let ddLabel = document.createElement('label');
         let ddSelect = document.createElement('select');
 
-        optionGroup.map((optionName,j)=>{
+        optionGroup.sort().map((optionName,j)=>{
             let ddOption = document.createElement('option');
             ddOption.append(document.createTextNode(optionName));
             ddOption.value = optionName;
@@ -115,16 +113,20 @@ const createCalculatorFormElement = ()=>{
         measurementSelect.append(option);
         return option;
     }
-    )
+    );
     distanceInput.type = 'number';
     distanceInput.value = 100;
     distanceInput.step = 5;
+    distanceInput.style.width='50%';
     distance.append(distanceInput, measurementSelect);
 
     fieldsetElement.append(distance);
-
-    let resultElement = document.createElement('ul');
+    let resultElement = document.createElement('div');
     resultElement.id = 'result-' + id;
+
+    let resultList = document.createElement('ul');
+
+    resultElement.append(resultList);
 
     formElement.append(fieldsetElement, resultElement);
 
