@@ -26,10 +26,20 @@ button#copy {
 }
 
 div.result {
-  margin: 0px 10px;
+  margin: 0px 15px;
 }
 
 div.result h3 {
+  margin: 0;
+}
+
+div.result ul {
+  padding: 3px;
+  font-size: 70%;
+  list-style-type: none;
+}
+
+div.result ul li {
   margin: 0;
 }
 
