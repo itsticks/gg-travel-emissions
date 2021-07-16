@@ -24,3 +24,15 @@ main {
 button#copy {
   margin: 3px;
 }
+
+div.result {
+  margin: 0px 10px;
+}
+
+div.result h3 {
+  margin: 0;
+}
+
+.kgco2e {
+  color: darkmagenta;
+}

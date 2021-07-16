@@ -48,14 +48,19 @@ const createCalculatorFormElement = ()=>{
         , "").replace(/\|+$/, "");
         let emissions = data[key];
         resultList.textContent = '';
+        kgco2e.textContent = '';
         if (emissions != undefined) {
             Object.keys(emissions).map(k=>{
-                let emissionValue = (emissions[k] * distanceInput.value) * milesMultiplier;
-                console.log(key, emissions[k], distanceInput.value, milesMultiplier, emissionValue);
-                let listElement = document.createElement('li');
-                let listElementText = emissions[k] != null ? `${emissionValue} ${k}` : 'no data';
-                listElement.append(document.createTextNode(listElementText));
-                resultList.append(listElement);
+                let emissionValue = ((emissions[k] * distanceInput.value) * milesMultiplier).toFixed(5);
+                if (k == 'kg CO2e') {
+                    kgco2e.append(document.createTextNode(emissionValue));
+                } else {
+                    // console.log(key, emissions[k], distanceInput.value, milesMultiplier, emissionValue);
+                    let listElement = document.createElement('li');
+                    let listElementText = emissions[k] != null ? `${emissionValue} ${k}` : 'no data';
+                    listElement.append(document.createTextNode(listElementText));
+                    resultList.append(listElement);
+                }
             }
             )
         }
@@ -123,10 +128,19 @@ const createCalculatorFormElement = ()=>{
     fieldsetElement.append(distance);
     let resultElement = document.createElement('div');
     resultElement.id = 'result-' + id;
+    resultElement.className = 'result';
+
+    let kgco2eHeader = document.createElement('h3');
+
+    let kgco2e = document.createElement('span');
+
+    kgco2e.className = 'kgco2e';
+
+    kgco2eHeader.append(kgco2e,document.createTextNode(' kg cO2e'));
 
     let resultList = document.createElement('ul');
 
-    resultElement.append(resultList);
+    resultElement.append(kgco2eHeader,resultList);
 
     formElement.append(fieldsetElement, resultElement);
 
