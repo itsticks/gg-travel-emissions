@@ -47,13 +47,15 @@ const createCalculatorFormElement = ()=>{
         }
         , "").replace(/\|+$/, "");
         let emissions = data[key];
-        console.log(key, emissions)
         resultElement.textContent = '';
         if (emissions != undefined) {
             Object.keys(emissions).map(k=>{
-                let emissionValue = emissions[k] * distanceInput.value;
+                let emissionValue = (emissions[k] * distanceInput.value)* milesMultiplier;
+
+                console.log(key, emissions[k], distanceInput.value, milesMultiplier, emissionValue);
+
                 let listElement = document.createElement('li');
-                let listElementText = emissions[k] != null ? `${(parseFloat(emissionValue) * milesMultiplier)} ${k}` : 'no data';
+                let listElementText = emissions[k] != null ? `${emissionValue} ${k}` : 'no data';
                 listElement.append(document.createTextNode(listElementText));
                 resultElement.append(listElement);
             }
