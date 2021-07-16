@@ -5,6 +5,7 @@ main {
 }
 
 .form {
+  background-color: floralwhite;
   width: max-content;
   border-width: 2px;
   border-color: thistle;

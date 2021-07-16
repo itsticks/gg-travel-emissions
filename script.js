@@ -80,7 +80,7 @@ const createCalculatorFormElement = ()=>{
     }
         , []);
     
-    optionGroups.push(['miles','km'])
+    optionGroups.push(['miles'])
 
     let ddSelects = optionGroups.map((optionGroup,i)=>{
 
