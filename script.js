@@ -5,18 +5,11 @@ const createCalculatorFormElement = ()=>{
     let id = forms.length + 1;
 
     let update = (ddIndex) => {
-         if (ddIndex == undefined) {
-             ddIndex = ddSelects.length - 1;
-                 }
+         if (ddIndex == undefined) {ddIndex = ddSelects.length - 1;}
             ddSelects.filter((select, j, arr) => j > ddIndex && j < arr.length - 1).map((select, j) => {
                
-                let keyMatchItems = ddSelects.slice(0, ddIndex).reduce((accum, dd, k) => { return accum += dd.value + "|" }, "");
                 let keyMatchItem = ddSelects[ddIndex].value;
-
-                console.log(keyMatchItems,keyMatchItem);
-
-                let keyMatches = Object.keys(data).filter(dataKey => dataKey.includes(keyMatchItem));
-             // something like this to get the previous keys matching too... or something to stop wrong stuff appearing in the dropdowns
+                let keyMatches = Object.keys(data).filter(dataKey => dataKey.split("|")[ddIndex] === keyMatchItem);
                    
                 select.value = '';
                 select.disabled = true;
@@ -24,7 +17,7 @@ const createCalculatorFormElement = ()=>{
                 let ddOptions = [].slice.call(select.childNodes).map((option, k) => {
                     option.style.display = 'none';
                     option.disabled = true;
-                    if (keyMatches.filter(key => key.includes(option.value))[0] !== undefined) {
+                    if (keyMatches.filter(key => key.split('|').includes(option.value))[0] !== undefined) {
                         option.style.display = 'block';
                         option.disabled = false;
                         if (select.value == '') { select.value = option.value }
