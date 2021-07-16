@@ -10,9 +10,11 @@ const createCalculatorFormElement = ()=>{
                  }
             ddSelects.filter((select, j, arr) => j > ddIndex && j < arr.length - 1).map((select, j) => {
                
-                let keyMatches = Object.keys(data).filter(dataKey => dataKey.includes(ddSelects[ddIndex].value));
+                let fullKey = ddSelects.slice(0, ddIndex).reduce((accum, dd, k) => { return accum += dd.value + "|" }, "");
+                console.log(fullKey);
+                let keyMatches = Object.keys(data).filter(dataKey => dataKey.includes(fullKey));
              // something like this to get the previous keys matching too... or something to stop wrong stuff appearing in the dropdowns
-                //   ddSelects.slice(0, ddIndex).reduce((accum,dd,k) => {return accum+=dd.value + "|" },"")
+                   
                 select.value = '';
                 select.disabled = true;
                 select.style.display = 'none';
